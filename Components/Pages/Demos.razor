@@ -1,0 +1,61 @@
+@page "/demos"
+@using ArchitectNow.SemanticKernelDemo.Services
+@rendermode InteractiveServer
+@inject ISemanticKernelService SemanticKernelService
+@inject IUserRepository UserRepository
+
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+<MudPopoverProvider/>
+
+<PageTitle>ArchitectNow Semantic Kernel Demo</PageTitle>
+<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
+    <MudGrid>
+        <MudItem xs="12">
+            <MudButton Variant="Variant.Text" Color="Color.Success" OnClick="BasicChatExecution">Basic Chat Execution</MudButton>
+            <MudText>@chatResponse1</MudText>
+        </MudItem>
+        <MudItem xs="12">
+            <MudButton Variant="Variant.Text" Color="Color.Success" OnClick="BasicChatExecution">Basic Chat Execution</MudButton>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+<style>
+    .blue-link {
+        color: #007BFF;
+    }
+
+    .large-banner {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .small-banner {
+        display: none;
+        width: 100%;
+        height: auto;
+    }
+
+    @@media (max-width: 600px) {
+        .large-banner {
+            display: none;
+        }
+
+        .small-banner {
+            display: block;
+        }
+    }
+
+</style>
+
+@code {
+    private string chatResponse1;
+
+    private async Task BasicChatExecution()
+    {
+        chatResponse1 = await SemanticKernelService.GenerateCompletionAsync("You are a helpful assistant.", "What is the capital of France?");
+    }
+
+}

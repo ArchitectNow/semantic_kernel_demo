@@ -1,6 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using ArchitectNow.SemanticKernelDemo.Components;
+using ArchitectNow.SemanticKernelDemo.Plugins;
+using ArchitectNow.SemanticKernelDemo.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,8 +42,26 @@ public class Program
             config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
         });
         
-        // builder.Services.AddAzureOpenAIChatCompletion(builder.Configuration["OpenAI:OpenAILatestGptDeployment"],
-        //    builder.Configuration["OpenAI:OpenAIEndpoint"], builder.Configuration["OpenAI:OpenAIKey"]);
+        builder.Services.AddScoped<Kernel>(serviceProvider =>
+        {
+            Kernel k = new(serviceProvider);
+
+            var chartingPlugin = serviceProvider.GetRequiredService<IChartFunctions>();
+            k.Plugins.AddFromObject(chartingPlugin);
+
+            var systemFunctions = serviceProvider.GetRequiredService<ISystemFunctions>();
+            k.Plugins.AddFromObject(systemFunctions);
+
+            return k;
+        });
+
+        builder.Services.AddAzureOpenAIChatCompletion(builder.Configuration["OpenAI:OpenAILatestGptDeployment"],
+            builder.Configuration["OpenAI:OpenAIEndpoint"], builder.Configuration["OpenAI:OpenAIKey"]);
+        
+        builder.Services.AddScoped<ISemanticKernelService, SemanticKernelService>();
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<IChartFunctions, ChartFunctions>();
+        builder.Services.AddScoped<ISystemFunctions, SystemFunctions>();
         
         var app = builder.Build();
 
@@ -53,6 +73,8 @@ public class Program
             app.UseExceptionHandler("/Error");
             app.UseHsts();
         }
+        
+
 
         app.UseHttpsRedirection();
         app.MapControllers();
