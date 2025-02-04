@@ -1,5 +1,6 @@
 @page "/demos"
 @using ArchitectNow.SemanticKernelDemo.Services
+@using Microsoft.SemanticKernel.ChatCompletion
 @rendermode InteractiveServer
 @inject ISemanticKernelService SemanticKernelService
 @inject IUserRepository UserRepository
@@ -12,11 +13,34 @@
 <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
     <MudGrid>
         <MudItem xs="12">
+            
             <MudButton Variant="Variant.Text" Color="Color.Success" OnClick="BasicChatExecution">Basic Chat Execution</MudButton>
-            <MudText>@chatResponse1</MudText>
         </MudItem>
         <MudItem xs="12">
-            <MudButton Variant="Variant.Text" Color="Color.Success" OnClick="BasicChatExecution">Basic Chat Execution</MudButton>
+            <MudStack Direction="LayoutDirection.Vertical">
+                @foreach (var msg in chatHistory)
+                {
+                    if (msg.Role == AuthorRole.System)
+                    {
+                        <MudText Color="Color.Info">System: @msg.Content</MudText>
+                    }
+                    else if (msg.Role == AuthorRole.Assistant)
+                    {
+                        <MudText Color="Color.Secondary">Assistant: @msg.Content</MudText>
+                    }
+                    else if (msg.Role == AuthorRole.User)
+                    {
+                        <MudText Color="Color.Primary">User: @msg.Content</MudText>
+                    }
+                    else if (msg.Role == AuthorRole.Tool)
+                    {
+                        <MudText Color="Color.Tertiary">Tool: @msg.Content</MudText>
+                    }
+                }
+                <MudText>Input Message:</MudText>
+                <MudInput T="string" @bind-Value="userMessage"></MudInput>
+                <MudButton Variant="Variant.Text" Color="Color.Success" OnClick="SendMessage">Send</MudButton>
+            </MudStack>
         </MudItem>
     </MudGrid>
 </MudContainer>
@@ -51,11 +75,24 @@
 </style>
 
 @code {
-    private string chatResponse1;
+    
+    private ChatHistory chatHistory = new ChatHistory("You are a helpful assistant in an AI demo showcasing the .NET semantic kernel");
+    private string userMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
 
     private async Task BasicChatExecution()
     {
-        chatResponse1 = await SemanticKernelService.GenerateCompletionAsync("You are a helpful assistant.", "What is the capital of France?");
+        var catResponse = await SemanticKernelService.GenerateCompletionAsync("You are a helpful assistant.", "What is the capital of France?");
+    }
+    
+    private async Task SendMessage()
+    {
+        chatHistory = await SemanticKernelService.GenerateCompletionAsync(chatHistory, userMessage);
+        userMessage = "";
     }
 
 }

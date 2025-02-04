@@ -8,12 +8,16 @@ public interface ISemanticKernelService
 {
     Task<string> GenerateCompletionAsync(string systemPrompt, string userPrompt,
         string aiDeployment = "");
+    
+    Task<ChatHistory> GenerateCompletionAsync(ChatHistory chatHistory, string userPrompt,
+        string aiDeployment = "");
 }
 
 public class SemanticKernelService : ISemanticKernelService
 {
     private readonly Kernel _kernel;
     private readonly string _aiDeployment;
+    private readonly IChatCompletionService _chatCompletionService;
 
     private readonly OpenAIPromptExecutionSettings _settings = new()
     {
@@ -26,6 +30,7 @@ public class SemanticKernelService : ISemanticKernelService
         _kernel = kernel;
         _settings.Temperature = configuration.GetValue<double>("OpenAi:Temperature");
         _aiDeployment = configuration.GetValue<string>("OpenAi:OpenAILatestGptDeployment");
+        _chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>();
     }
 
     public async Task<string> GenerateCompletionAsync(string systemPrompt, string userPrompt,
@@ -38,16 +43,37 @@ public class SemanticKernelService : ISemanticKernelService
         {
             aiDeployment = _aiDeployment;
         }
-        
-        var chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>();
 
         var chatHistory = new ChatHistory(systemPrompt);
 
         chatHistory.AddUserMessage(userPrompt);
 
-        var completionResults = await chatCompletionService.GetChatMessageContentAsync(chatHistory, _settings, _kernel);
+        var completionResults = await _chatCompletionService.GetChatMessageContentAsync(chatHistory, _settings, _kernel);
         var answer = completionResults.Content;
 
         return answer!;
+    }
+
+    public async Task<ChatHistory> GenerateCompletionAsync(ChatHistory chatHistory, string userPrompt,
+        string aiDeployment = "")
+    {
+        if (chatHistory == null)
+        {
+            chatHistory =
+                new ChatHistory("You are a helpful assistant in an AI demo showcasing the .NET semantic kernel");
+        }
+        
+        chatHistory.AddUserMessage(userPrompt);
+        
+        if (string.IsNullOrEmpty(aiDeployment))
+        {
+            aiDeployment = _aiDeployment;
+        }
+        
+        var completionResults = await _chatCompletionService.GetChatMessageContentAsync(chatHistory, _settings, _kernel);
+        
+        chatHistory.AddAssistantMessage(completionResults.Content);
+        
+        return chatHistory;
     }
 }
