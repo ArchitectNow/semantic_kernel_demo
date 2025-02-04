@@ -1,0 +1,191 @@
+@page "/"
+@rendermode InteractiveServer
+
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+<MudPopoverProvider/>
+
+<PageTitle>ArchitectNow Semantic Kernel Demo</PageTitle>
+<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
+    <MudGrid>
+        <MudItem xs="12">
+            <MudImage Src="images/NewBanner.png" Class="large-banner"></MudImage>
+            <MudImage Src="images/an-logo-color.png" Class="small-banner"></MudImage>
+        </MudItem>
+        <MudItem xs="12">
+            <MudText Typo="Typo.h4" GutterBottom="true">Welcome to ArchitectNow</MudText>
+            <MudText Typo="Typo.body1" GutterBottom="true">
+                ArchitectNow is a leading provider of custom software solutions that leverage the power of
+                Artificial Intelligence (AI).
+                We help our clients solve complex business problems, optimize processes, enhance customer
+                experiences, and generate new insights using AI.
+            </MudText>
+            <MudText Typo="Typo.body1" GutterBottom="true">
+                On this website, you can see some of the AI capabilities that we offer and how we apply them to
+                different industries.
+                You can also learn more about the AI components that we use to build our solutions and how they can
+                be integrated into your existing systems.
+            </MudText>
+            <MudText Typo="Typo.h5" GutterBottom="true">AI for Industries</MudText>
+            <MudText Typo="Typo.body1" GutterBottom="true">
+                We have created several demos that showcase how AI can be used to improve various aspects of
+                different industries. You can explore these demos by clicking on the menu on the left.
+            </MudText>
+            <MudList T="string">
+                <MudListItem>Utilize AI to quickly analyze scanned documents and pull out information.</MudListItem>
+                <MudListItem>Analyze data using natural human language.</MudListItem>
+                <MudListItem>Automate telephone outreach with the backing of AI.</MudListItem>
+                <MudListItem>Streamline usage of custom applications through built-in AI chat and functionality</MudListItem>
+            </MudList>
+            <MudText T="string" Typo="Typo.body1" GutterBottom="true">
+                These demos use sample data and workflows to illustrate the potential of AI. However, we can
+                customize our solutions to fit your specific needs and goals.
+                We can also work with your own data and integrate with your existing systems.
+            </MudText>
+            <MudText Typo="Typo.h5" GutterBottom="true">Microsoft OpenAI</MudText>
+            <MudText Typo="Typo.body1" GutterBottom="true">
+                To build our AI solutions, we use a variety Cloud-based AI services provided by Microsoft and available within their Azure Cloud. These components include:
+            </MudText>
+            <MudList T="string">
+                <MudListItem T="string">
+                    <MudText>
+                        <a href="https://azure.microsoft.com/en-us/services/cognitive-services/openai-service/"
+                           target="_blank" class="blue-link">
+                            Azure OpenAI
+                        </a>: A cloud-based platform that allows us
+                        to create and deploy scalable AI models using state-of-the-art techniques and tools.
+                    </MudText>
+                </MudListItem>
+                <MudListItem T="string">
+                    <MudText>
+                        <a href="https://azure.microsoft.com/en-us/services/machine-learning/" target="_blank"
+                           class="blue-link">
+                            Azure OpenAI Studio
+                        </a>: A graphical interface that enables us to
+                        design, train, and test AI models without writing code.
+                    </MudText>
+                </MudListItem>
+                <MudListItem T="string">
+                    <MudText>
+                        <a href="https://azure.microsoft.com/en-us/services/communication-services/" target="_blank"
+                           class="blue-link">
+                            Azure Communication Service
+                        </a>: A service that enables us to add
+                        real-time communication features such as voice, video, chat, and SMS to our AI solutions.
+                    </MudText>
+                </MudListItem>
+                <MudListItem T="string">
+                    <MudText>
+                        <a href="https://azure.microsoft.com/en-us/services/search/" target="_blank"
+                           class="blue-link">
+                            Azure AI Search
+                        </a>: A service that allows us to create intelligent
+                        search experiences that can understand natural language, extract relevant information, and
+                        provide personalized results.
+                    </MudText>
+                </MudListItem>
+                <MudListItem>
+                    <MudText>
+                        <a href="https://azure.microsoft.com/en-us/services/cosmos-db/" target="_blank"
+                           class="blue-link">
+                            Azure CosmosDB
+                        </a>: A database that supports multiple data models and
+                        offers high availability, scalability, and performance for our AI solutions.
+                    </MudText>
+                </MudListItem>
+                <MudListItem>
+                    <MudText>
+                        <a href="https://azure.microsoft.com/en-us/services/search/" target="_blank"
+                           class="blue-link">
+                            Azure Cognitive Search
+                        </a>: A service that enables us to index and
+                        search unstructured data such as documents, images, and videos using AI.
+                    </MudText>
+                </MudListItem>
+                <MudListItem>
+                    <MudText>
+                        <a href="https://aka.ms/SemanticKernel" target="_blank" class="blue-link">
+                            Semantic
+                            Kernel
+                        </a>: The Microsoft Semantic Kernel is a framework designed to develop intelligent applications by integrating AI and machine learning models with natural language understanding capabilities.
+                    </MudText>
+                </MudListItem>
+                <MudListItem T="string">
+                    <MudText>
+                        <a href="https://azure.microsoft.com/en-us/products/ai-services/ai-vision" target="_blank" class="blue-link">
+                            Azure AI Vision
+                        </a>: A service that provides capabilities for image and video analysis, enabling us to extract insights, detect objects, recognize text, and understand the contents of visual data.
+                    </MudText>
+                </MudListItem>
+                <MudListItem T="string">
+                    <MudText>
+                        <a href="https://azure.microsoft.com/en-us/services/cognitive-services/speech-services/" target="_blank" class="blue-link">
+                            Azure AI Speech
+                        </a>: A service that enables us to convert spoken language into text and vice versa, allowing for voice-enabled applications with features like speech-to-text, text-to-speech, and real-time translation.
+                    </MudText>
+                </MudListItem>
+            </MudList>
+
+            <MudText Typo="Typo.body1" GutterBottom="true">
+                These components can be combined and customized to create powerful and flexible AI solutions that
+                can meet your business needs and expectations.
+            </MudText>
+            <MudText Typo="Typo.h5" GutterBottom="true">Contact Us</MudText>
+            <MudText Typo="Typo.body1" GutterBottom="true">
+                If you are interested in learning more about our AI solutions and how we can help you achieve your
+                business goals, please contact us today.
+                You can fill out the form below or send us an email at
+                <a href="mailto:info@architectnow.com"
+                   class="blue-link">
+                    info@architectnow.com
+                </a>
+                We will get back to you as soon as possible.
+            </MudText>
+            <MudText Typo="Typo.body1" GutterBottom="true">
+                Thank you for visiting our website and we hope to hear from you soon.
+            </MudText>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+<style>
+    .blue-link {
+        color: #007BFF;
+    }
+
+    .large-banner {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .small-banner {
+        display: none;
+        width: 100%;
+        height: auto;
+    }
+    
+    @@media (max-width: 600px) {
+        .large-banner {
+            display: none;
+        }
+
+        .small-banner {
+            display: block;
+        }
+    }
+    
+</style>
+
+@code {
+    private bool isLoaded;
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoaded = false;
+        // Simulate data loading or initialization process
+        await Task.Delay(500);
+        isLoaded = true;
+    }
+
+}

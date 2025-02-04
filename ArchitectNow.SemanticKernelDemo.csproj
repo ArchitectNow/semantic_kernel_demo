@@ -1,0 +1,89 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Azure.AI.DocumentIntelligence" Version="1.0.0-beta.3"/>
+        <PackageReference Include="Azure.AI.OpenAI" Version="2.1.0-beta.2"/>
+        <PackageReference Include="Azure.AI.Vision.ImageAnalysis" Version="1.0.0"/>
+        <PackageReference Include="Azure.Communication.CallAutomation" Version="1.4.0-beta.1"/>
+        <PackageReference Include="Azure.Identity" Version="1.13.1"/>
+        <PackageReference Include="Azure.Storage.Blobs" Version="12.23.0"/>
+        <PackageReference Include="Blazor-ApexCharts" Version="4.0.1"/>
+        <PackageReference Include="Blazored.FluentValidation" Version="2.2.0"/>
+        <PackageReference Include="Chart.js" Version="3.7.1"/>
+        <PackageReference Include="Markdig" Version="0.38.0"/>
+        <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="8.1.0-preview"/>
+        <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.47.0-preview.0"/>
+        <PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.41.1"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.AzureAppConfiguration" Version="8.1.0-preview"/>
+        <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.22.0"/>
+        <PackageReference Include="Microsoft.Graph" Version="5.64.0"/>
+        <PackageReference Include="Microsoft.Identity.Web" Version="3.4.0"/>
+        <PackageReference Include="Microsoft.Identity.Web.UI" Version="3.4.0"/>
+        <PackageReference Include="Microsoft.SemanticKernel" Version="1.34.0" />
+        <PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureAISearch" Version="1.34.0-preview" />
+        <PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureOpenAI" Version="1.34.0" />
+        <PackageReference Include="Microsoft.SemanticKernel.Planners.Handlebars" Version="1.34.0-preview" />
+        <PackageReference Include="Microsoft.SemanticKernel.Planners.OpenAI" Version="1.34.0-preview" />
+        <PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.34.0-alpha" />
+        <PackageReference Include="Microsoft.SemanticKernel.PromptTemplates.Handlebars" Version="1.34.0" />
+        <PackageReference Include="Microsoft.SemanticKernel.Yaml" Version="1.34.0" />
+        <PackageReference Include="MudBlazor" Version="8.0.0-preview.5"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="StackExchange.Redis" Version="2.8.22"/>
+        <PackageReference Include="YamlDotNet" Version="16.2.1"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Options\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\finance\BankStatement1.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\finance\InvoiceDutch1.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\finance\InvoiceEnglish1.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\finance\InvoiceFrench1.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\finance\InvoiceGerman1.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\finance\InvoiceItalian1.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\finance\InvoicePortuguese1.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\finance\ReceiptChinese1.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\finance\ReceiptFrench1.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\finance\ReceiptSpanish1.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\finance\Sample1098TaxForm.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\finance\SampleFinancialStatement1.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\finance\SampleFinancialStatement2.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\finance\SampleW2TaxForm.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\finance\us-check.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\finance\us-pay-stub.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\finance\UsBankStatement1.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\finance\UsCheck1.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\finance\UsPayStub1.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\healthcare\HealthcareDoc1.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\healthcare\HealthcareDoc2.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\healthcare\HealthcareDoc3.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\healthcare\HealthcareDoc4.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\healthcare\SampleHealthcareInvoice1.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\healthcare\SampleHealthcareInvoice2.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\healthcare\SampleHealthcareInvoice3.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\manufacturing\SampleConstructionInvoice1.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\manufacturing\SampleConstructionInvoice2.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\manufacturing\SampleConstructionInvoice3.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\misc\AnimalPhotos.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\misc\Guitars.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\misc\HumanDog.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\misc\Nurses.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\misc\OfficeDesk.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\misc\PlanePhoto.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\misc\SampleDriversLicense1.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\misc\SamplePassport1.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\misc\SampleText.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\demofiles\misc\X32.jpg" />
+    </ItemGroup>
+
+</Project>

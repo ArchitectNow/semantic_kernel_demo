@@ -1,0 +1,9 @@
+@media (max-width: 768px) {
+    .mt-16 {
+        margin-top: 16px !important;
+    }
+
+    .pa-4 {
+        padding: 16px !important;
+    }
+}

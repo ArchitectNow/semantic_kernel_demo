@@ -1,0 +1,21 @@
+﻿@using MudBlazor
+@inject NavigationManager Navigator
+
+<MudNavMenu>
+    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
+</MudNavMenu>
+
+@code {
+
+    public void NavigateTo(string Url)
+    {
+        Navigator.NavigateTo(Url);
+    }
+
+    private bool IsGroupExpanded(string groupName)
+    {
+        var uri = Navigator.Uri;
+        return uri.Contains(groupName);
+    }
+
+}

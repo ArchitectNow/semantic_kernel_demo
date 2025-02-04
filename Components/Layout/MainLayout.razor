@@ -1,0 +1,60 @@
+﻿@using MudBlazor
+@inherits LayoutComponentBase
+@inject NavigationManager Navigation
+
+<MudThemeProvider Theme="_theme"/>
+<MudLayout>
+    <MudAppBar Elevation="1" Color="Color.Primary">
+        <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
+            <MudGrid Justify="Justify.FlexStart" AlignItems="Center">
+                <MudItem>
+                    <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" @rendermode="InteractiveServer" OnClick="@DrawerToggle"/>
+                </MudItem>
+                <MudItem>
+                    <MudImage Src="images/an-logo-color.png" Alt="ArchitectNow" Elevation="0" Width="175" Height="45"/>
+                </MudItem>
+            </MudGrid>
+        </MudContainer>
+    </MudAppBar>
+    <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Docked" Elevation="2">
+        <NavMenu/>
+    </MudDrawer>
+    <MudMainContent Class="mt-16 pa-4">
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+<style>
+    .right-aligned {
+        margin-left: auto;
+    }
+</style>
+
+@code {
+    private bool _drawerOpen = true;
+
+    protected override void OnInitialized()
+    {
+        Navigation.LocationChanged += OnLocationChanged;
+    }
+
+    private readonly MudTheme _theme = new()
+    {
+        PaletteLight = new PaletteLight
+        {
+            Primary = Colors.Gray.Default,
+            Secondary = Colors.Indigo.Default
+        }
+    };
+
+    public void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    private void OnLocationChanged(object sender, LocationChangedEventArgs e)
+    {
+// _drawerOpen = false;
+    }
+
+}
