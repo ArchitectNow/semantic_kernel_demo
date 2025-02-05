@@ -1,0 +1,83 @@
+@page "/serializationdemos"
+@using ArchitectNow.SemanticKernelDemo.Models
+@using ArchitectNow.SemanticKernelDemo.Services
+@using Microsoft.SemanticKernel
+@using Microsoft.SemanticKernel.ChatCompletion
+@rendermode InteractiveServer
+@inject ISemanticKernelService SemanticKernelService
+@inject IUserRepository UserRepository
+
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+<MudPopoverProvider/>
+
+<PageTitle>ArchitectNow Semantic Kernel Serialization Demo</PageTitle>
+<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
+    <MudGrid>
+        <MudItem xs="12">
+            <MudButton Variant="Variant.Text" Color="Color.Success" OnClick="GenerateSampleData">Generate Sample Data</MudButton>
+        </MudItem>
+        <MudItem xs="12">
+            <MudDataGrid Items="users"
+                         MultiSelection="false"
+                         Hover="true"
+                         Filterable="true"
+                         Sortable="true"
+                         Paginated="true"
+                         PageSize="10"
+                         FilterMode="DataGridFilterMode.ColumnFilterMenu"
+                         FilterCaseSensitivity="DataGridFilterCaseSensitivity.Default">
+                <Columns>
+                    <PropertyColumn Property="x => x.NameFirst" Title="First Name" />
+                    <PropertyColumn Property="x => x.NameLast" Title="Last Name" />
+                    <PropertyColumn Property="x => x.Email" Title="Email" />
+                    <PropertyColumn Property="x => x.Phone" Title="Phone" />
+                    <PropertyColumn Property="x => x.Address" Title="Address" />
+                </Columns>
+                <PagerContent>
+                    <MudDataGridPager />
+                </PagerContent>
+            </MudDataGrid>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+<style>
+    .blue-link {
+        color: #007BFF;
+    }
+
+    .large-banner {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .small-banner {
+        display: none;
+        width: 100%;
+        height: auto;
+    }
+
+    @@media (max-width: 600px) {
+        .large-banner {
+            display: none;
+        }
+
+        .small-banner {
+            display: block;
+        }
+    }
+
+</style>
+
+@code {
+    private List<User> users = new List<User>();
+    
+    private async Task GenerateSampleData()
+    {
+        var prompt = "Generate a list of 10 sample users in the St. Louis area";
+        
+        users = await SemanticKernelService.GenerateDataAsync<List<User>>(prompt);
+    }
+}

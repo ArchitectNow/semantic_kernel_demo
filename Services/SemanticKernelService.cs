@@ -1,6 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
+using Newtonsoft.Json;
+using NJsonSchema;
+using OpenAI.Chat;
 
 namespace ArchitectNow.SemanticKernelDemo.Services;
 
@@ -10,6 +14,9 @@ public interface ISemanticKernelService
         string aiDeployment = "");
     
     Task<ChatHistory> GenerateCompletionAsync(ChatHistory chatHistory, string userPrompt,
+        string aiDeployment = "");
+
+    Task<T> GenerateDataAsync<T>(string prompt,
         string aiDeployment = "");
 }
 
@@ -75,5 +82,30 @@ public class SemanticKernelService : ISemanticKernelService
         chatHistory.AddAssistantMessage(completionResults.Content);
         
         return chatHistory;
+    }
+
+    [Experimental("SKEXP0010")]
+    public async Task<T> GenerateDataAsync<T>(string prompt,
+        string aiDeployment = "")
+    {
+        var schema = JsonSchema.FromType<T>();
+        var schemaJson = schema.ToJson();
+        
+        var chatResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
+            jsonSchemaFormatName: "custom_result",
+            jsonSchema: BinaryData.FromString(schemaJson),
+            jsonSchemaIsStrict: true);
+        
+        var executionSettings = new OpenAIPromptExecutionSettings
+        {
+            ResponseFormat = chatResponseFormat
+        };
+        
+        var functionResult = await _kernel.InvokePromptAsync(prompt, new(executionSettings));
+        
+        // Deserialize the FunctionResult into the specified type T
+        T result = functionResult.GetValue<T>();
+
+        return result;
     }
 }

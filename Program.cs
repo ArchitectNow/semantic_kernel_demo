@@ -51,6 +51,9 @@ public class Program
 
             var systemFunctions = serviceProvider.GetRequiredService<ISystemFunctions>();
             k.Plugins.AddFromObject(systemFunctions);
+            
+            var routingFunctions = serviceProvider.GetRequiredService<IRoutingFunctions>();
+            k.Plugins.AddFromObject(routingFunctions);
 
             return k;
         });
@@ -62,7 +65,8 @@ public class Program
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IChartFunctions, ChartFunctions>();
         builder.Services.AddScoped<ISystemFunctions, SystemFunctions>();
-        
+        builder.Services.AddScoped<IRoutingFunctions, RoutingFunctions>();
+
         var app = builder.Build();
 
         app.UseStaticFiles();

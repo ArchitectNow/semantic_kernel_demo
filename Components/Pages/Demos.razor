@@ -1,5 +1,6 @@
-@page "/demos"
+@page "/basicdemos"
 @using ArchitectNow.SemanticKernelDemo.Services
+@using Microsoft.SemanticKernel
 @using Microsoft.SemanticKernel.ChatCompletion
 @rendermode InteractiveServer
 @inject ISemanticKernelService SemanticKernelService
@@ -24,9 +25,9 @@
                     {
                         <MudText Color="Color.Info">System: @msg.Content</MudText>
                     }
-                    else if (msg.Role == AuthorRole.Assistant)
+                    else if (msg.Role == AuthorRole.Assistant && !string.IsNullOrEmpty(msg.Content))
                     {
-                        <MudText Color="Color.Secondary">Assistant: @msg.Content</MudText>
+                        <MudText Color="Color.Secondary">OpenAI Response: @msg.Content</MudText>
                     }
                     else if (msg.Role == AuthorRole.User)
                     {
@@ -34,7 +35,21 @@
                     }
                     else if (msg.Role == AuthorRole.Tool)
                     {
-                        <MudText Color="Color.Tertiary">Tool: @msg.Content</MudText>
+                        foreach (var contentItem in msg.Items)
+                        {
+                            if (contentItem is FunctionResultContent)
+                            {
+                               var functionResult = (FunctionResultContent)contentItem;
+                                <MudText Color="Color.Tertiary"> Tool Executed: @functionResult.PluginName @functionResult.FunctionName</MudText>
+                            } else if (contentItem is TextContent)
+                            {
+                                var textResult = (TextContent)contentItem;
+                                if (!string.IsNullOrEmpty(textResult.Text))
+                                {
+                                    <MudText Color="Color.Tertiary"> Tool text result: @textResult.Text</MudText>
+                                }
+                            }
+                        }
                     }
                 }
                 <MudText>Input Message:</MudText>
