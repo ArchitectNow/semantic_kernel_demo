@@ -78,6 +78,8 @@
     {
         var prompt = "Generate a list of 10 sample users in the St. Louis area";
         
-        users = await SemanticKernelService.GenerateDataAsync<List<User>>(prompt);
+        var results = await SemanticKernelService.GenerateDataAsync<UserResults>(prompt);
+        
+        users = results.Users;
     }
 }

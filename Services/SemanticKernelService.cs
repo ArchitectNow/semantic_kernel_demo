@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Nodes;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
@@ -78,7 +81,11 @@ public class SemanticKernelService : ISemanticKernelService
         }
         
         var completionResults = await _chatCompletionService.GetChatMessageContentAsync(chatHistory, _settings, _kernel);
-        
+
+        if (completionResults.Metadata != null && completionResults.Metadata.Any())
+        {
+            // Debug.WriteLine($"Tokens: {completionResults.}");
+        };
         chatHistory.AddAssistantMessage(completionResults.Content);
         
         return chatHistory;
@@ -91,10 +98,10 @@ public class SemanticKernelService : ISemanticKernelService
         var schema = JsonSchema.FromType<T>();
         var schemaJson = schema.ToJson();
         
-        var chatResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
-            jsonSchemaFormatName: "custom_result",
+        ChatResponseFormat chatResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
+            jsonSchemaFormatName: "object",
             jsonSchema: BinaryData.FromString(schemaJson),
-            jsonSchemaIsStrict: true);
+            jsonSchemaIsStrict: false);
         
         var executionSettings = new OpenAIPromptExecutionSettings
         {
@@ -103,9 +110,8 @@ public class SemanticKernelService : ISemanticKernelService
         
         var functionResult = await _kernel.InvokePromptAsync(prompt, new(executionSettings));
         
-        // Deserialize the FunctionResult into the specified type T
-        T result = functionResult.GetValue<T>();
-
-        return result;
+        var jsonResult = functionResult.GetValue<string>();
+        
+        return JsonConvert.DeserializeObject<T>(jsonResult);
     }
 }

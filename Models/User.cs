@@ -1,5 +1,9 @@
 namespace ArchitectNow.SemanticKernelDemo.Models;
 
+public class UserResults
+{
+    public List<User> Users { get; set; }
+}
 public class User
 {
     public string NameFirst { get; set; }
